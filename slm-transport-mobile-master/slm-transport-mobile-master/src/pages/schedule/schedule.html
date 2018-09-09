@@ -1,0 +1,103 @@
+<!--
+  Generated template for the PackageListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!--<ion-header>-->
+
+<!--<ion-navbar>-->
+<!--<button ion-button menuToggle>-->
+<!--<ion-icon name="menu"></ion-icon>-->
+<!--</button>-->
+<!--<ion-title>ตารางงาน</ion-title>-->
+<!--</ion-navbar>-->
+
+<!--</ion-header>-->
+
+
+<ion-content >
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div>
+    <p text-right="" no-padding="" no-margin="" padding-right="" class="font-size-m" style="margin-top: 5px;color: dimgray">ผู้ใช้งาน {{api.currentUser.name}}</p>
+    <h1 padding-left="" style="margin-top: 0px"> รายการส่งสินค้า</h1>
+    <!--<ion-list>-->
+
+    <ion-searchbar
+      [(ngModel)]="searchInput"
+      [showCancelButton]="true"
+      placeholder="ค้นหาด้วย ID"
+      [debounce]="1000"
+      (ionInput)="onSearch($event)">
+    </ion-searchbar>
+
+    <div class="spinner-container" *ngIf="isLoading">
+    <ion-spinner name="bubbles"></ion-spinner>
+    </div>
+      <h1 *ngIf="worklist == null || worklist.length == 0" class="text-item-none" text-center="">
+        ไม่มีงานมอบหมาย
+      </h1>
+    <ion-card *ngFor="let w of worklist" [hidden]="w.status == 3" [ngStyle]="{'background-color': getSoftColor(w.status),'margin-bottom':'40px','padding-bottom':'6px'}">
+      <div [ngStyle]="{'height.px':5,'background-color': getColor(w.status)}"></div>
+      <ion-card-content style="padding: 5px">
+        <!--<ion-card-title style="width: 50%">-->
+        <!--</ion-card-title>-->
+        <!--<ion-label text-right="" no-margin=""> </ion-label>-->
+        <!--<ion-label item-start="" no-margin> </ion-label>-->
+
+        <ion-row>
+          <ion-col col-6="">
+            <h1>{{w.date | amDateFormat: 'DD/MM/YYYY'}}</h1>
+          </ion-col>
+          <ion-col col-6="">
+            <p text-right="">ID : {{w.assId}} </p>
+          </ion-col>
+        </ion-row>
+        <!--<h2 text-right=""> <b>{{p.name}}</b></h2>-->
+
+        <!--<ion-item>-->
+        <!--</ion-item>-->
+        <hr>
+        <p class="font-size-s"> <u>สถานที่รับสินค้า </u> </p>
+        <h1 class="font-size-m" text-right="">
+          {{w.recieveLocation}}
+        </h1>
+        <p class="font-size-s"><u>สถานที่ส่งสินค้า </u> </p>
+        <h1 class="font-size-m" text-right="">
+          {{w.deliveryLocation}}
+        </h1>
+        <p class="font-size-s"> <u>วันที่กำหนดรับสินค้า</u> </p>
+        <h1 class="font-size-l" text-right=""> {{ w.recieveDate | amDateFormat: 'DD/MM/YYYY'}}</h1>
+        <p class="font-size-s"> <u>วันที่กำหนดส่งสินค้า</u> </p>
+        <h1 class="font-size-l" text-right=""> {{ w.deliveryDate | amDateFormat: 'DD/MM/YYYY'}}</h1>
+        <p class="font-size-s"> <u>ชื่อสินค้า </u> </p>
+        <h1 class="font-size-l" text-right=""> {{w.productName}}</h1>
+        <p class="font-size-s"> <u>ชื่อลูกค้า </u> </p>
+        <h1 class="font-size-l" text-right=""> {{w.officer}}</h1>
+
+        <!--<p class="font-size-s"> <u>ทะเบียนรถ</u> </p>-->
+        <!--<h1 class="font-size-l" text-right=""> {{w.car}}</h1>-->
+        <hr>
+        <!--<p> พักสินค้า 17-01-01 00:00 </p>-->
+        <!--<p> พักสินค้า 17-01-01 00:00 </p>-->
+        <div *ngIf="api.currentUser.pos == '3'">
+          <p class="font-size-s" *ngIf="w.receiveLog != null"> <u>บันทึกรับสินค้าเมื่อ </u> <span float-right="">{{w.receiveLog | amDateFormat: 'DD/MM/YYYY HH:mm'}}</span></p>
+          <p class="font-size-s" *ngIf="w.storedLogs != null"> <u>บันทึกพักสินค้าเมื่อ </u> <span float-right="">{{w.storedLogs | amDateFormat: 'DD/MM/YYYY HH:mm'}}</span></p>
+          <p class="font-size-s" *ngIf="w.startSendlogs != null"> <u>บันทึกเริ่มส่งสินค้าเมื่อ </u> <span float-right="">{{w.startSendlogs | amDateFormat: 'DD/MM/YYYY HH:mm'}}</span></p>
+          <p class="font-size-s" *ngIf="w.finishLogs != null"> <u>บันทึกส่งสินค้าเมื่อ </u> <span float-right="">{{w.finishLogs | amDateFormat: 'DD/MM/YYYY HH:mm'}}</span></p>
+          <button float-right ion-button="" [ngStyle]="{'background-color': getColor(0)}" *ngIf="w.status == null" class="confirm-button" [default]="true"  round (click)="presentConfirm(w,0,'บันทึกรับสินค้า')"> บันทึกรับสินค้า</button>
+          <button float-right ion-button="" [ngStyle]="{'background-color': getColor(2)}" *ngIf="w.status == 0 || w.status == 1" class="confirm-button" [default]="true"  round (click)="presentConfirm(w,2,'บันทึกเริ่มต้นสินค้า')"> บันทึกเริ่มส่งสินค้า</button>
+          <button float-right ion-button="" [ngStyle]="{'background-color': getColor(1)}" *ngIf="w.status == 0" class="stock-button" [default]="true"  round (click)="doPrompt(w,1)"> บันทึกพักสินค้า</button>
+          <button float-right ion-button="" [ngStyle]="{'background-color': getColor(3)}" *ngIf="w.status == 2 " class="confirm-button" [default]="true"  round (click)="doPromptFinish(w,3)"> บันทึกสินค้าถึงปลายทาง</button>
+        </div>
+
+        <ion-label class="font-size-xl" [ngStyle]="{'color': '#FFCC00'}" text-right="" *ngIf="w.status == 3"> ส่งสินค้าแล้วเรียบร้อยแล้ว</ion-label>
+      </ion-card-content>
+    </ion-card>
+
+    <!--</ion-list>-->
+  </div>
+
+</ion-content>

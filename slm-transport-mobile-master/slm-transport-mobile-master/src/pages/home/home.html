@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        Logout
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>ATB Mobile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-tabs [tabsPlacement]="bottom">
+    <ion-tab [root]="schedulePage" tabTitle="ตารางงาน" ></ion-tab>
+    <ion-tab [root]="infoPage" tabTitle="ข้อมูลผู้ใช้" ></ion-tab>
+  </ion-tabs>
+  <!--</ion-tabs>-->
+<!--<ion-content padding>-->
+  <!--<h3 >ข้อมูลผู้ใช้</h3>-->
+  <!--<ion-card margin="10px">-->
+    <!--<ion-fab right>-->
+      <!--<button ion-fab mini (click)="openEditInfo()">edit</button>-->
+    <!--</ion-fab>-->
+    <!--<ion-card-header>-->
+      <!--<b>เจ้าหน้าที่ขนส่ง</b>-->
+      <!--<ion-label>-->
+        <!--ID : 22044-->
+      <!--</ion-label>-->
+      <!--<ion-label>-->
+        <!--ชื่อ. นาย กวินท์ ศิริคะเณรัตน์-->
+      <!--</ion-label>-->
+    <!--</ion-card-header>-->
+
+  <!--</ion-card>-->
+  <!--<br>-->
+
+  <!--<div>-->
+
+    <!--<h1> ยืนยันสถานะสินค้า</h1>-->
+
+    <!--&lt;!&ndash;(ionInput)="onInput($event)"&ndash;&gt;-->
+      <!--&lt;!&ndash;(ionCancel)="onCancel($event)">&ndash;&gt;-->
+
+    <!--<br>-->
+    <!--<div class="spinner-container" *ngIf="isLoading">-->
+      <!--<ion-spinner name="bubbles"></ion-spinner>-->
+    <!--</div>-->
+    <!--<ion-list *ngIf="!isLoading">-->
+      <!--<ion-item *ngIf="itemStatus == null ">-->
+        <!--<h1 class="text-item-none" text-center="">-->
+          <!--ไม่มีงานมอบหมาย-->
+        <!--</h1>-->
+      <!--</ion-item>-->
+
+      <!--<ion-item *ngIf="itemStatus != null ">-->
+        <!--<h1 text-left="">-->
+          <!--สินค้าหมายเลข 11222-->
+        <!--</h1>-->
+      <!--</ion-item>-->
+
+      <!--<h3 class="text-item-confirm"  text-center="" *ngIf="itemStatus != null">-->
+        <!--ยืนยัน-->
+      <!--</h3>-->
+      <!--<ion-item *ngIf="itemStatus != null ">-->
+        <!--<h1 class="text-item-status" text-center="">-->
+          <!--{{itemStatus.value}}-->
+        <!--</h1>-->
+      <!--</ion-item>-->
+      <!--<ion-item *ngIf="itemStatus != null">-->
+        <!--<button ion-button  class="submit-btn" full large  round (click)="itemStatus.id == 1 ? doPrompt() : presentConfirm()"> Confirm</button>-->
+      <!--</ion-item>-->
+
+    <!--</ion-list>-->
+  <!--</div>-->
+
+<!--</ion-content>-->
